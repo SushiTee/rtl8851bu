@@ -41,9 +41,17 @@ static int rtw_dev_resume(struct usb_interface *intf);
 static int rtw_dev_probe(struct usb_interface *pusb_intf, const struct usb_device_id *pdid);
 static void rtw_dev_remove(struct usb_interface *pusb_intf);
 
-static void rtw_dev_shutdown(struct device *dev)
+static void rtw_dev_shutdown(
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(6, 11, 0))
+		struct usb_interface *usb_intf
+#else
+		struct device *dev
+#endif
+)
 {
+#if (LINUX_VERSION_CODE < KERNEL_VERSION(6, 11, 0))
 	struct usb_interface *usb_intf = container_of(dev, struct usb_interface, dev);
+#endif
 	struct dvobj_priv *dvobj = NULL;
 	_adapter *adapter = NULL;
 
@@ -215,7 +223,9 @@ struct rtw_usb_drv usb_drv = {
 	.usbdrv.reset_resume   = rtw_dev_resume,
 #endif
 
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 19)) && \
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(6, 11, 0))
+	.usbdrv.shutdown = rtw_dev_shutdown,
+#elif (LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 19)) && \
 	(LINUX_VERSION_CODE < KERNEL_VERSION(6, 8, 0))
 	.usbdrv.drvwrap.driver.shutdown = rtw_dev_shutdown,
 #else
