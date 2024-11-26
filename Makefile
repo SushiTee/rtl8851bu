@@ -56,7 +56,7 @@ CONFIG_SDIO_HCI = n
 CONFIG_GSPI_HCI = n
 ########################## Features ###########################
 CONFIG_MP_INCLUDED = y
-CONFIG_CONCURRENT_MODE = n
+CONFIG_CONCURRENT_MODE = y
 CONFIG_POWER_SAVE = y
 CONFIG_BTC = y
 CONFIG_WAPI_SUPPORT = n
@@ -194,7 +194,7 @@ CONFIG_WAKEUP_TYPE = 0x0f
 CONFIG_SUSPEND_TYPE = 0
 CONFIG_WOW_STA_MIX = n
 CONFIG_GPIO_WAKEUP = n
-# Please contact with RTK support team first. After getting the agreement from RTK support team, 
+# Please contact with RTK support team first. After getting the agreement from RTK support team,
 # you are just able to modify the CONFIG_WAKEUP_GPIO_IDX with customized requirement.
 CONFIG_WAKEUP_GPIO_IDX = default
 CONFIG_HIGH_ACTIVE_DEV2HST = n
