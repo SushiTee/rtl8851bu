@@ -215,7 +215,8 @@ struct rtw_usb_drv usb_drv = {
 	.usbdrv.reset_resume   = rtw_dev_resume,
 #endif
 
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 19))
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 19)) && \
+	(LINUX_VERSION_CODE < KERNEL_VERSION(6, 8, 0))
 	.usbdrv.drvwrap.driver.shutdown = rtw_dev_shutdown,
 #else
 	.usbdrv.driver.shutdown = rtw_dev_shutdown,
@@ -1000,7 +1001,7 @@ static void rtw_dev_remove(struct usb_interface *pusb_intf)
 
 	rtw_drv_stop_prim_iface(padapter);
 
-	if (rtw_hw_is_init_completed(dvobj)) 
+	if (rtw_hw_is_init_completed(dvobj))
 		rtw_hw_stop(dvobj);
 	dev_set_surprise_removed(dvobj);
 
