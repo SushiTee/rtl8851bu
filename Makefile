@@ -899,6 +899,7 @@ endif
 ############ ANDROID COMMON KERNEL ############
 # Convert to absolute path
 ifneq ($(srctree),)
+ifneq ($(CONFIG_RTW_ANDROID),0)
 _EXTRA_CFLAGS :=
 _INC_CFLAGS :=
 $(foreach flag,$(EXTRA_CFLAGS),\
@@ -912,4 +913,5 @@ $(foreach flag,$(subst -I,,$(_INC_CFLAGS)),\
  $(shell if test -d $(srctree)/$(flag); then echo -I$$(cd $(srctree)/$(flag) && pwd); else echo -I$(flag); fi)\
 )
 EXTRA_CFLAGS := $(_EXTRA_CFLAGS) $(_INC_CFLAGS)
+endif
 endif
