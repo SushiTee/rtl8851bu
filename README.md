@@ -16,7 +16,7 @@ This repository hosts a modified and updated version of the Realtek RTL8851BU Wi
 - **CPU Architectures:** x86, ARM, MIPS
 
 ## Installation
-For Arch Linux and its derivatives, the [`rtl8851bu-dkms-git`](https://aur.archlinux.org/packages/rtl8851bu-dkms-git) package offers a convenient DKMS-based installation. Alternatively, users can manually build and install the kernel modules using `make clean && make && sudo make install`. For non-Arch Linux users wishing to use DKMS, the command is sudo `dkms install .`, and they should be aware that the module installation path might need to be specified based on their distribution's kernel module directory structure.
+For Arch Linux and its derivatives, the [`rtl8851bu-dkms-git`](https://aur.archlinux.org/packages/rtl8851bu-dkms-git) package offers a convenient DKMS-based installation. Alternatively, users can manually build and install the kernel modules using `make clean && make && sudo make install`. For non-Arch Linux users wishing to use DKMS, the command is `sudo dkms install .`, and they should be aware that the module installation path might need to be specified based on their distribution's kernel module directory structure.
 
 ## Contributing
 Contributions are welcome! If you're using a different Linux distribution or kernel version, feel free to test and submit patches to improve compatibility. Please open an issue or pull request with your findings and fixes.
