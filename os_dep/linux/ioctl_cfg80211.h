@@ -471,7 +471,10 @@ void rtw_cfg80211_deinit_rfkill(struct wiphy *wiphy);
 #endif
 
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 5, 0))
-u8 rtw_cfg80211_ch_switch_notify(_adapter *adapter, struct rtw_chan_def *rtw_chdef, u8 ht, bool started);
+u8 rtw_cfg80211_ch_switch_notify(_adapter *adapter,
+					struct _ADAPTER_LINK *alink,
+					struct rtw_chan_def *rtw_chdef,
+					u8 ht, bool started);
 #endif
 
 #if CONFIG_IEEE80211_BAND_6GHZ

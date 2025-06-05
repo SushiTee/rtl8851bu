@@ -1670,6 +1670,11 @@ void rtw_he_ies_detach(_adapter *padapter, struct _ADAPTER_LINK *padapter_link, 
 
 u8 rtw_he_htc_en(_adapter *padapter, struct sta_info *psta)
 {
+	struct rtw_wifi_role_t *wrole = padapter->phl_role;
+
+	if (rtw_phl_is_ap_category(wrole->type))
+		return 0;
+
 	return 1;
 }
 

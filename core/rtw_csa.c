@@ -633,6 +633,7 @@ void rtw_ecsa_complete(void *priv, struct rtw_wifi_role_t *role)
 		ht_option = alink->mlmepriv.htpriv.ht_option;
 		#endif
 		rtw_cfg80211_ch_switch_notify(a,
+			GET_PRIMARY_LINK(a),
 			&alink->mlmeextpriv.chandef,
 			ht_option, 0);
 		#endif

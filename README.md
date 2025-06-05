@@ -39,7 +39,7 @@ Additionally, the interface name may vary based on your system configuration. If
 ```
 
 ## Acknowledgments
-This project is based on Realtek's official driver release **v1.19.10-70-g84e35c28d.20231019**.
+This project is based on Realtek's official driver release **v1.19.10-78-gfbe3fba11.20240422**.
 
 ## Disclaimer
 This project is maintained by independent developers and is not affiliated with, endorsed by, or supported by Realtek Corporation. The maintainers are not employees of Realtek.

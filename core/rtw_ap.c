@@ -1634,15 +1634,16 @@ void rtw_core_ap_swch_start(_adapter *padapter, struct createbss_parm *parm)
 		if (!(parm->ifbmp_ch_changed & BIT(i)) || !iface)
 			continue;
 
-		#ifdef CONFIG_80211N_HT
-		/* ToDo CONFIG_RTW_MLD: [currently primary link only] */
 		iface_link = GET_PRIMARY_LINK(iface);
+
+		#ifdef CONFIG_80211N_HT
 		ht_option = iface_link->mlmepriv.htpriv.ht_option;
 		#endif
 
-		rtw_cfg80211_ch_switch_notify(iface
-			, &iface_link->mlmeextpriv.chandef
-			, ht_option, 0);
+		rtw_cfg80211_ch_switch_notify(iface,
+						iface_link,
+						&iface_link->mlmeextpriv.chandef,
+						ht_option, 0);
 	}
 #endif /* defined(CONFIG_IOCTL_CFG80211) && (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 5, 0)) */
 

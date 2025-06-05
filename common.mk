@@ -64,7 +64,7 @@ _CORE_FILES :=	core/rtw_cmd.o \
 		core/rtw_pwrctrl.o \
 		core/rtw_rf.o \
 		core/rtw_chplan.o \
-		core/rtw_regdb_$(CONFIG_RTW_REGDB).o \
+		core/regdb/rtw_regdb_$(CONFIG_RTW_REGDB).o \
 		core/rtw_chset.o \
 		core/rtw_dfs.o \
 		core/rtw_txpwr.o \

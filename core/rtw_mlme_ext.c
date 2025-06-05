@@ -6186,6 +6186,7 @@ int _issue_probereq(_adapter *padapter, struct _ADAPTER_LINK *padapter_link,
 	     && is_supported_vht(pregistrypriv->wireless_mode)
 	     && RFCTL_REG_EN_11AC(rfctl)
 	) {
+		rtw_vht_get_real_setting(padapter, padapter_link);
 		len = rtw_build_vht_cap_ie(padapter, padapter_link, pframe, _FALSE);
 		pattrib->pktlen += len;
 		pframe += len;
@@ -9362,6 +9363,9 @@ void start_clnt_join(_adapter *padapter)
 	struct link_mlme_ext_info	*pmlmeinfo = &(pmlmeext->mlmext_info);
 	WLAN_BSSID_EX		*pnetwork = (WLAN_BSSID_EX *)(&(pmlmeinfo->network));
 	u8 lidx;
+#if defined(CONFIG_IOCTL_CFG80211) && (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 5, 0))
+	u8 ht_option = 0;
+#endif
 
 
 	/* update wireless mode and capability of the primary adapter_link*/
@@ -9384,6 +9388,15 @@ void start_clnt_join(_adapter *padapter)
 		u8 iot_flag = _TRUE;
 		rtw_hal_set_hwreg(padapter, HW_VAR_ASIX_IOT, (u8 *)(&iot_flag));
 	}
+
+#if defined(CONFIG_IOCTL_CFG80211) && (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 5, 0))
+#ifdef CONFIG_80211N_HT
+	ht_option = padapter_link->mlmepriv.htpriv.ht_option;
+#endif
+
+	rtw_cfg80211_ch_switch_notify(padapter, GET_PRIMARY_LINK(padapter),
+				      &pmlmeext->chandef, ht_option, _TRUE);
+#endif
 
 	if (caps & cap_ESS) {
 		rtw_hal_set_hwreg(padapter, HW_VAR_SEC_CFG, NULL);
@@ -12041,6 +12054,7 @@ void rtw_join_done_chk_ch(_adapter *adapter, int join_res)
 							#endif
 
 							rtw_cfg80211_ch_switch_notify(iface
+								, GET_PRIMARY_LINK(iface)
 								, &lmlmeext->chandef
 								, ht_option, 0);
 							#endif

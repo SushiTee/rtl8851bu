@@ -2001,7 +2001,7 @@ int rtw_check_bcn_info(_adapter *adapter, struct _ADAPTER_LINK *adapter_link,
 		{
 			u8 ht_option = adapter_link->mlmepriv.htpriv.ht_option;
 
-			rtw_cfg80211_ch_switch_notify(adapter, &plmlmeext->chandef, ht_option, 0);
+			rtw_cfg80211_ch_switch_notify(adapter, GET_PRIMARY_LINK(adapter), &plmlmeext->chandef, ht_option, 0);
 		}
 		#endif
 

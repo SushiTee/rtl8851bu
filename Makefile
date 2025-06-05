@@ -71,7 +71,13 @@ CONFIG_TXPWR_BY_RATE = y
 CONFIG_TXPWR_BY_RATE_EN = y
 CONFIG_TXPWR_LIMIT = y
 CONFIG_TXPWR_LIMIT_EN = n
-CONFIG_RTW_REGDB = phl
+
+####################### RTW regulatory DB selection  ######################
+# RTW regulatory database version to select
+# *MUST* config to match the certification status of shipping product,
+# otherwise regression issue on regulatory may happen.
+CONFIG_RTW_REGDB = phl_wrapper
+
 ########################## Initial Channel Plan  ##########################
 # XX: unspecified
 CONFIG_RTW_COUNTRY_CODE = XX
@@ -825,6 +831,7 @@ strip:
 	$(CC_STRIP) $(MODULE_NAME).ko --strip-unneeded
 
 install:
+	install -p powertable/* /lib/firmware/
 	install -p -m 644 $(MODULE_NAME).ko  $(MODDESTDIR)
 	/sbin/depmod -a ${KVER}
 
