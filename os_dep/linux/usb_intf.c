@@ -144,6 +144,7 @@ static void rtw_dev_shutdown(
 #endif
 
 
+#define USB_VENDOR_ID_TPLINK		0x3625
 #define USB_VENDER_ID_EDIMAX		0x7392
 #define USB_VENDER_ID_REALTEK		0x0BDA
 
@@ -174,7 +175,7 @@ static struct usb_device_id rtw_usb_id_tbl[] = {
 	{USB_DEVICE_AND_INTERFACE_INFO(USB_VENDER_ID_REALTEK, 0xB851, 0xff, 0xff, 0xff), .driver_info = RTL8851B},
 
 	/*=== TP Link TX10UB AX900 ===*/
-	{USB_DEVICE_AND_INTERFACE_INFO(0x3625, 0x010B, 0xff, 0xff, 0xff), .driver_info = RTL8851B},
+	{USB_DEVICE_AND_INTERFACE_INFO(USB_VENDOR_ID_TPLINK, 0x010B, 0xff, 0xff, 0xff), .driver_info = RTL8851B},
 
 	/*=== EDIMAX EW-7611UXB ===*/
 	{USB_DEVICE_AND_INTERFACE_INFO(USB_VENDER_ID_EDIMAX, 0xE611, 0xff, 0xff, 0xff), .driver_info = RTL8851B},
