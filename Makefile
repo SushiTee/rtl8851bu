@@ -749,10 +749,12 @@ endif
 
 ########### PLATFORM OPS  ##########################
 # Import platform assigned KSRC and CROSS_COMPILE
+ccflags-y = $(EXTRA_CFLAGS)
 include $(wildcard $(DRV_PATH)/platform/*.mk)
 
 # Import platform specific compile options
 EXTRA_CFLAGS += -I$(src)/platform
+ccflags-y = $(EXTRA_CFLAGS)
 #_PLATFORM_FILES := platform/platform_ops.o
 OBJS += $(_PLATFORM_FILES)
 
@@ -773,6 +775,7 @@ endif
 
 ifneq ($(KERNELRELEASE),)
 ########### COMMON #################################
+ccflags-y = $(EXTRA_CFLAGS)
 include $(src)/common.mk
 
 EXTRA_CFLAGS += -DPHL_PLATFORM_LINUX
@@ -794,6 +797,8 @@ ifeq ($(DIRTY_FOR_WORK), y)
 EXTRA_CFLAGS += -DDIRTY_FOR_WORK
 endif
 
+ccflags-y = $(EXTRA_CFLAGS)
+
 include $(src)/phl/phl.mk
 
 
@@ -806,10 +811,12 @@ ifneq ($(CONFIG_RTKM), n)
 _MEMM_FILES = core/rtw_prealloc.o
 ifeq ($(CONFIG_RTKM), y)
 EXTRA_CFLAGS += -DCONFIG_RTKM -DCONFIG_RTKM_BUILT_IN
+ccflags-y = $(EXTRA_CFLAGS)
 $(MODULE_NAME)-y += $(_MEMM_FILES)
 else ifeq ($(CONFIG_RTKM), m)
 RTKM_MODULE = rtkm
 EXTRA_CFLAGS += -DCONFIG_RTKM -DCONFIG_RTKM_STANDALONE
+ccflags-y = $(EXTRA_CFLAGS)
 _MEMM_FILES += core/rtw_mem.o
 $(RTKM_MODULE)-y += $(_MEMM_FILES)
 obj-$(CONFIG_RTL8851BU) += $(RTKM_MODULE).o
@@ -819,13 +826,20 @@ endif
 else
 
 export CONFIG_RTL8851BU = m
+ccflags-y = $(EXTRA_CFLAGS)
 
 all: modules
 
 modules:
 #	rm -f .symvers.$(MODULE_NAME)
 
-	$(MAKE) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) -C $(KSRC) M=$(M)  modules
+	$(MAKE) \
+		ARCH=$(ARCH) \
+		CROSS_COMPILE=$(CROSS_COMPILE) \
+		-C $(KSRC) \
+		M=$(M) \
+		KCFLAGS="$(KCFLAGS) $(EXTRA_CFLAGS)" \
+		modules
 
 #	$(CC_STRIP) --strip-unneeded ${OUT_DIR}/$(M)/$(MODULE_NAME).ko
 #	cp Module.symvers .symvers.$(MODULE_NAME)
