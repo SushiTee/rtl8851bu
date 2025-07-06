@@ -15,6 +15,9 @@ EXTRA_CFLAGS += -Wno-unused-label
 EXTRA_CFLAGS += -Wno-unused
 #EXTRA_CFLAGS += -Wno-uninitialized
 
+# Try to assign the source directory if it is still undefined.
+export src ?= $(shell pwd)
+
 ############ ANDROID COMMON KERNEL ############
 # clang
 ifeq ($(CC), clang)
