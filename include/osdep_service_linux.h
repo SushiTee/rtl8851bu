@@ -56,6 +56,14 @@
 #include <linux/list.h>
 #include <linux/vmalloc.h>
 
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(6, 15, 0))
+#define del_timer_sync timer_delete_sync
+#endif
+
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(6, 15, 0))
+#define del_timer timer_delete
+#endif
+
 #ifdef CONFIG_RTKM
 #include <rtw_mem.h>
 #endif /* CONFIG_RTKM */
